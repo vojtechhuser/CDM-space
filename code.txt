@@ -1,0 +1,33 @@
+--visit
+select e.Subject_GUID as person_id,dateadd(year, datediff(year, 0, e.primary_Date_Time),0) visit_start_date  
+into visit_occurrence
+from btris.dbo.Observation_Measurable e
+group by  
+e.Subject_GUID,dateadd(year, datediff(year, 0, e.primary_Date_Time),0) 
+
+select top 10  * from btris.dbo.Subject
+
+--person
+select e.UID person_id
+--, e.Date_of_death
+--,dateadd(year, datediff(year, 0, e.primary_Date_Time),0) 
+,year(e.Date_of_birth) year_of_birth
+into person
+from btris.dbo.Subject e
+
+select e.UID person_id
+--, e.Date_of_death
+--,dateadd(year, datediff(year, 0, e.primary_Date_Time),0) 
+,year(e.Date_of_birth) year_of_birth
+into person
+from btris.dbo.Subject e
+
+--death
+select e.UID person_id
+, e.Date_of_death death_date
+--,dateadd(year, datediff(year, 0, e.primary_Date_Time),0) 
+--,year(e.Date_of_birth) year_of_birth
+into death
+from btris.dbo.Subject e
+where e.Date_of_death is not null
+
